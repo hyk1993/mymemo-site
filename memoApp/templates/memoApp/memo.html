@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href='https://fonts.googleapis.com/css?family=Luckiest Guy' rel='stylesheet'>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Nunito Sans' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <title>MyMemo</title>
+    <style>
+      .navbar-brand{
+          font-family: 'Luckiest Guy';
+          font-size: 40px;
+          margin:0px;
+          padding:0px;
+      }
+      .createPart{
+        background-color:darkGrey;
+        height:37.5px;
+        font-family:'Do Hyeon', sans-serif;
+        font-size:25px;
+      }
+      th, td {
+        text-align:center;
+      }
+      li a {
+        font-family: 'Luckiest Guy';
+      }
+    </style>
+  </head>
+  <body style="margin:0px;">
+    <div style="margin:0px;" class="navPart">
+      <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="/">66days_for_me</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/control/">Control</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/record/">Record</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div style="" class="createPart">
+      <b style="margin-left: 5px; font-size:25px; font-family: 'Do Hyeon', sans-serif;">Title : {{ memo_id.habbitName }} | Since : {{ memo_id.startDate }}</b>
+    <div style="margin-top:0px;" class="tablePart">
+      <table class="table table-dark">
+        <thead style="font-family: 'Abel'; font-size: 27px;">
+          <tr>
+            <th style="width:200px;" scope="col">Date</th>
+            <th style="width:1500px;" scope="col">Contents</th>
+            <th scope="col">
+              <div style="float:right; margin-right:10px;" class="btn-group" role="group" aria-label="Basic example">
+                <form action="memoPage/" method="GET">{% csrf_token %}
+                  <button value="{{ memo_id.id }}" style="width:100px; margin-top:3px; padding:3px;" type="submit" class="btn btn-secondary"><b>CREATE</b></button>
+                </form>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody style="font-size:20px; font-family: 'Do Hyeon', sans-serif;">
+        {% for memo in memos %}
+          <tr>
+            <td>{{ memo.date_time }}</td>
+            <td>{{ memo.contents }}</td>
+            <td style="padding:0px;">
+              <form style="height:100px;" action="delete/" method="POST">{% csrf_token %}
+                <input type="hidden" name="memoId" value="{{ memo.id }}">
+                <button style="margin-top:30px; float:center;" type="submit" class="btn btn-secondary">DELETE</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
+
